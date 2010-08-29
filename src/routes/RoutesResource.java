@@ -11,37 +11,25 @@ import org.restlet.representation.StringRepresentation;
 import org.restlet.representation.Variant;
 import org.restlet.resource.*;
 
-import utility.ConnectionFactory;
 
 import java.sql.*;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
+
 import javax.naming.NamingException;
-import javax.sql.*;
+import utility.*;
+import xDomain.XDomain;
+import xDomain.XDomainServerResource;
 
 /**
  * 
  * @author Dean Chen
  */
-public class RoutesResource extends ServerResource {
+public class RoutesResource extends XDomainServerResource {
 
-	@Options
-	public void doOptions(Representation entity) {
-	    Form responseHeaders = (Form) getResponse().getAttributes().get("org.restlet.http.headers");
-	    if (responseHeaders == null) {
-	        responseHeaders = new Form();
-	        getResponse().getAttributes().put("org.restlet.http.headers", responseHeaders);
-	    }
-	    responseHeaders.add("Access-Control-Allow-Origin", "*");
-	    responseHeaders.add("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-	    responseHeaders.add("Access-Control-Allow-Headers", "Content-Type");
-	    responseHeaders.add("Access-Control-Allow-Credentials", "false");
-	    responseHeaders.add("Access-Control-Max-Age", "60");
-	}
-	
 	@Get
 	public Representation represent(Variant variant) throws SQLException, NamingException {
+		XDomain.allowAllOrigins(this);
+
 		Connection conn = null;
 		Statement s = null;
 
