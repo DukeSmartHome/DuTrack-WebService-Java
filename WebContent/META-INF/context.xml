@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context path="/rest" docBase="test" crossContext="true" reloadable="true" debug="1">
+
+  <Resource name="jdbc/restDB"
+  					auth="Container" 
+  					type="javax.sql.DataSource" 
+  					driverClassName="com.mysql.jdbc.Driver"  
+  					url="jdbc:mysql://dev.dukechronicle.com/dutrack_routes" 
+	          maxActive="100" 
+	          maxIdle="30" 
+	          maxWait="10000"
+	          username="dutrack" 
+	          password="cVuSWnHEyXjfHm4c" />
+
+</Context>
