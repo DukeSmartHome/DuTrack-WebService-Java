@@ -1,9 +1,9 @@
 package application;
 
-import messages.MessagesResource;
-import routes.RoutesResource;
-import routes.WayPointsResource;
-import buses.BusesResource;
+import restResources.buses.BusesResource;
+import restResources.messages.MessagesResource;
+import restResources.routes.RoutesResource;
+import restResources.routes.WayPointsResource;
 
 import org.restlet.Application;
 import org.restlet.Restlet;

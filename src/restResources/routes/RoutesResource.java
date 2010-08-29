@@ -1,4 +1,4 @@
-package routes;
+package restResources.routes;
 
 import org.json.*;
 import org.restlet.Request;
@@ -16,7 +16,8 @@ import java.sql.*;
 
 
 import javax.naming.NamingException;
-import utility.*;
+
+import utilities.*;
 import xDomain.XDomain;
 import xDomain.XDomainServerResource;
 
