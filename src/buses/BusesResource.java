@@ -1,5 +1,6 @@
 package buses;
 
+import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
 
@@ -9,7 +10,8 @@ import org.restlet.resource.ServerResource;
  */
 public class BusesResource extends ServerResource {
 	@Get
-    public String represent() {
-        return "hello, world";
+    public Representation represent() {
+		String source = getReference().getSegments().get(1);
+		return null;
     }
 }

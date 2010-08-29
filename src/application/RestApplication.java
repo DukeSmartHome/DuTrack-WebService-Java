@@ -2,6 +2,7 @@ package application;
 
 import messages.MessagesResource;
 import routes.RoutesResource;
+import routes.WayPointsResource;
 import buses.BusesResource;
 
 import org.restlet.Application;
@@ -21,8 +22,15 @@ public class RestApplication extends Application {
  
         // Define routes
         router.attach("/buses", BusesResource.class);
+        router.attach("/buses/{busId}", BusesResource.class);
+        
         router.attach("/messages", MessagesResource.class);
+        router.attach("/messages/{messageId}", MessagesResource.class);
+        
         router.attach("/routes", RoutesResource.class);
+        router.attach("/routes/{routeId}", RoutesResource.class);
+        router.attach("/routes/{routeId}/buses", BusesResource.class);
+        router.attach("/routes/{routeId}/waypoints", WayPointsResource.class);
  
         return router;
     }
