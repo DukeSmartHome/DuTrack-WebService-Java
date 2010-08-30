@@ -19,18 +19,17 @@ public class RestApplication extends Application {
     public synchronized Restlet createInboundRoot() {
     	
         Router router = new Router(getContext());
- 
         // Define routes
-        router.attach("/buses", BusesResource.class);
-        router.attach("/buses/{busId}", BusesResource.class);
+        router.attach("/" + Source.BUS, BusesResource.class);
+        router.attach("/" + Source.BUS + "/{busId}", BusesResource.class);
         
-        router.attach("/messages", MessagesResource.class);
-        router.attach("/messages/{messageId}", MessagesResource.class);
+        router.attach("/" + Source.MESSAGE, MessagesResource.class);
+        router.attach("/" + Source.MESSAGE + "/{messageId}", MessagesResource.class);
         
-        router.attach("/routes", RoutesResource.class);
-        router.attach("/routes/{routeId}", RoutesResource.class);
-        router.attach("/routes/{routeId}/buses", BusesResource.class);
-        router.attach("/routes/{routeId}/waypoints", WayPointsResource.class);
+        router.attach("/" + Source.ROUTE, RoutesResource.class);
+        router.attach("/" + Source.ROUTE + "/{routeId}", RoutesResource.class);
+        router.attach("/" + Source.ROUTE + "/{routeId}/busLocations", BusesResource.class);
+        router.attach("/" + Source.ROUTE + "/{routeId}/waypoints", WayPointsResource.class);
  
         return router;
     }

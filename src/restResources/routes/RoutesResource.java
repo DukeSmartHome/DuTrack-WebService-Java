@@ -1,21 +1,14 @@
 package restResources.routes;
 
 import org.json.*;
-import org.restlet.Request;
-import org.restlet.Response;
-import org.restlet.data.Form;
-import org.restlet.data.MediaType;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.representation.StringRepresentation;
 import org.restlet.representation.Variant;
 import org.restlet.resource.*;
 
-
 import java.sql.*;
 
-
-import javax.naming.NamingException;
 
 import utilities.*;
 import xDomain.XDomain;
@@ -28,14 +21,14 @@ import xDomain.XDomainServerResource;
 public class RoutesResource extends XDomainServerResource {
 
 	@Get
-	public Representation represent(Variant variant) throws SQLException, NamingException {
+	public Representation represent(Variant variant) throws SQLException {
 		XDomain.allowAllOrigins(this);
 
 		Connection conn = null;
 		Statement s = null;
 
 		// create connection
-		conn = ConnectionFactory.getInstance();
+		conn = ConnectionFactory.getDataConnection();
 
 		// create and execute SQL statement
 		s = conn.createStatement();
@@ -49,8 +42,10 @@ public class RoutesResource extends XDomainServerResource {
 			String routeId = routeParam.toString();
 			
 			if (parameter.equals(routeId)) {
+				conn.close();
 				return new StringRepresentation(parameter);
 			} else {
+				conn.close();
 				return new StringRepresentation(routeId + ":" + parameter);
 			}
 		} else {
@@ -72,7 +67,7 @@ public class RoutesResource extends XDomainServerResource {
 		while (rs.next()) {
 			result.put(rs.getString(1));
 		}
-
+		
 		return new JsonRepresentation(result.toString());
 	}
 	

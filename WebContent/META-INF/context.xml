@@ -2,15 +2,25 @@
 
 <Context path="/rest" docBase="test" crossContext="true" reloadable="true" debug="1">
 
-  <Resource name="jdbc/restDB"
+  <Resource name="jdbc/restDB/data"
   					auth="Container" 
   					type="javax.sql.DataSource" 
   					driverClassName="com.mysql.jdbc.Driver"  
-  					url="jdbc:mysql://dev.dukechronicle.com/dutrack_routes" 
-	          maxActive="100" 
-	          maxIdle="30" 
+  					url="jdbc:mysql://dev.dukechronicle.com/dutrack_data" 
+	          maxActive="60" 
+	          maxIdle="10" 
 	          maxWait="10000"
 	          username="dutrack" 
 	          password="cVuSWnHEyXjfHm4c" />
-
+	          
+	 <Resource name="jdbc/restDB/gts"
+  					auth="Container" 
+  					type="javax.sql.DataSource" 
+  					driverClassName="com.mysql.jdbc.Driver"  
+  					url="jdbc:mysql://dev.dukechronicle.com/dutrack_gts" 
+	          maxActive="60" 
+	          maxIdle="10" 
+	          maxWait="10000"
+	          username="dutrack" 
+	          password="cVuSWnHEyXjfHm4c" />
 </Context>
