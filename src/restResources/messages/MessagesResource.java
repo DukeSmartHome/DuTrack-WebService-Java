@@ -14,6 +14,7 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 
 import utilities.ConnectionFactory;
+import xDomain.XDomain;
 import xDomain.XDomainServerResource;
 
 /**
@@ -24,6 +25,7 @@ public class MessagesResource extends XDomainServerResource {
 	
 	@Get
 	public Representation represent() throws SQLException {
+		XDomain.allowAllOrigins(this);
 		Object messageParam = getRequestAttributes().get("messageId");
 		
 		if (messageParam == null) {

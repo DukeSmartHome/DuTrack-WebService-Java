@@ -3,7 +3,6 @@ package application;
 import restResources.buses.BusesResource;
 import restResources.messages.MessagesResource;
 import restResources.routes.RoutesResource;
-import restResources.routes.WayPointsResource;
 
 import org.restlet.Application;
 import org.restlet.Restlet;
@@ -28,8 +27,9 @@ public class RestApplication extends Application {
         
         router.attach("/" + Source.ROUTE, RoutesResource.class);
         router.attach("/" + Source.ROUTE + "/{routeId}", RoutesResource.class);
+        router.attach("/" + Source.ROUTE + "/{routeId}/wayPoints", RoutesResource.class);
+        router.attach("/" + Source.ROUTE + "/{routeId}/stops", RoutesResource.class);
         router.attach("/" + Source.ROUTE + "/{routeId}/busLocations", BusesResource.class);
-        router.attach("/" + Source.ROUTE + "/{routeId}/waypoints", WayPointsResource.class);
  
         return router;
     }
