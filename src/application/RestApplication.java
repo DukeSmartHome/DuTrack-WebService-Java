@@ -26,6 +26,7 @@ public class RestApplication extends Application {
         router.attach("/" + Source.MESSAGE + "/{messageId}", MessagesResource.class);
         
         router.attach("/" + Source.ROUTE, RoutesResource.class);
+        router.attach("/" + Source.ROUTE + "/active", RoutesResource.class);
         router.attach("/" + Source.ROUTE + "/{routeId}", RoutesResource.class);
         router.attach("/" + Source.ROUTE + "/{routeId}/wayPoints", RoutesResource.class);
         router.attach("/" + Source.ROUTE + "/{routeId}/stops", RoutesResource.class);

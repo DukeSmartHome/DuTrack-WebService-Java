@@ -34,10 +34,10 @@ public class RoutesResource extends XDomainServerResource {
 
 		// get url parameter
 		Object routeParam = getRequestAttributes().get("routeId");
+		String lastUrlSegment = getReference().getLastSegment();
 		
 		Representation returnValue;
 		if (routeParam != null) {
-			String lastUrlSegment = getReference().getLastSegment();
 			String routeId = routeParam.toString();
 
 			if (lastUrlSegment.equals(routeId)) {
@@ -50,19 +50,47 @@ public class RoutesResource extends XDomainServerResource {
 				returnValue = new JsonRepresentation(getRouteStops(routeId, conn));
 			} else {
 				// bad lastUrlSegment
-				returnValue = new JsonRepresentation(new JSONArray());
+				returnValue = null;
 			}
+		} else if (lastUrlSegment.equals("active")) {
+			returnValue = new JsonRepresentation(getAllActiveRoutes(s));
 		} else {
 			// /routes
-			returnValue = getAllActiveRoutes(s);
+			returnValue = new JsonRepresentation(getAllRoutes(s));
 		}
 		
 		s.close();
 		conn.close();
 		return returnValue;
 	}
+	
+	private JSONArray getAllRoutes(Statement s) throws SQLException {
+		s.executeQuery("SELECT `id`, `name`, `description`, `category` FROM `routes` WHERE `name`!='Charter'");
+		
+		// make query
+		ResultSet rs = s.getResultSet();
 
-	private Representation getAllActiveRoutes(Statement s) throws SQLException {
+		// populate JSON result
+		JSONArray container = new JSONArray();
+		while (rs.next()) {
+			JSONObject route = new JSONObject();
+			try {
+				route.put("id", rs.getString("id"));
+				route.put("name", rs.getString("name"));
+				route.put("description", rs.getString("description"));
+				route.put("category", rs.getString("category"));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			container.put(route);
+		}
+		
+		rs.close();
+		return container;
+	}
+	
+	private JSONArray getAllActiveRoutes(Statement s) throws SQLException {
 
 		s.executeQuery("SELECT DISTINCT(`route`) FROM `vehicle_assignments` WHERE `route`!='Yard'");
 
@@ -75,7 +103,8 @@ public class RoutesResource extends XDomainServerResource {
 			result.put(rs.getString(1));
 		}
 		
-		return new JsonRepresentation(result.toString());
+		rs.close();
+		return result;
 	}
 
 	
@@ -106,6 +135,7 @@ public class RoutesResource extends XDomainServerResource {
 			container.put(route);
 		}
 		
+		rs.close();
 		return container;
 	}
 	
@@ -126,8 +156,10 @@ public class RoutesResource extends XDomainServerResource {
 		ResultSet rs = s.executeQuery();
 		
 		if (rs.next()) {
+			rs.close();
 			return rs.getInt("id");
 		} else {
+			rs.close();
 			return -1;
 		}
 	}
@@ -163,7 +195,7 @@ public class RoutesResource extends XDomainServerResource {
 			}
 			container.put(route);
 		}
-		
+		rs.close();
 		return container;
 	}
 
