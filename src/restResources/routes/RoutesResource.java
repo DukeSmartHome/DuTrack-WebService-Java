@@ -156,8 +156,9 @@ public class RoutesResource extends XDomainServerResource {
 		ResultSet rs = s.executeQuery();
 		
 		if (rs.next()) {
+			int result = rs.getInt("id");
 			rs.close();
-			return rs.getInt("id");
+			return result;
 		} else {
 			rs.close();
 			return -1;
@@ -173,7 +174,7 @@ public class RoutesResource extends XDomainServerResource {
 		}
 		
 		String query = null;
-		query= "SELECT `id`, `long`, `lat` FROM `routeCoordinates` WHERE `routeId`=? AND `isStop`=? ORDER BY `id`";
+		query= "SELECT `id`, `long`, `lat` FROM `route_coordinates` WHERE `routeId`=? AND `isStop`=? ORDER BY `id`";
 		
 		PreparedStatement s = conn.prepareStatement(query);
 		s.setInt(1, routeId);

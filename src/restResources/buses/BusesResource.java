@@ -85,7 +85,7 @@ public class BusesResource extends XDomainServerResource {
 	 */
 	private JSONObject getBusLocation(String busId) throws SQLException, JSONException {
 		
-		String[] columnsToFetch = {"deviceID", "latitude", "longitude", "timestamp"};
+		String[] columnsToFetch = {"deviceID", "latitude", "longitude", "timestamp", "heading"};
 		
 		StringBuffer query = new StringBuffer();
 		
